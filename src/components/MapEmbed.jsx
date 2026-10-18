@@ -1,31 +1,40 @@
 import { MapPin, Navigation2, ExternalLink, Phone } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 export default function MapSection({ venue, accent, cardBg, btnGradient, btnText }) {
+  const { isDark } = useTheme();
+  const textColor = isDark ? '#ffffff' : '#1a1612';
+  const addressColor = isDark ? 'rgba(255,255,255,0.65)' : '#524538';
+
   return (
     <div className="space-y-5">
       {/* Venue card */}
       <div
-        className="rounded-2xl p-6 flex gap-5"
-        style={{ background: cardBg, border: `1px solid ${accent}25` }}
+        className="rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row gap-3.5 sm:gap-5 items-start"
+        style={{
+          background: cardBg,
+          border: `1px solid ${accent}25`,
+          boxShadow: isDark ? 'none' : '0 10px 30px rgba(0,0,0,0.05)',
+        }}
       >
         <div
-          className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+          className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
           style={{ background: `${accent}15`, border: `1px solid ${accent}50` }}
         >
           <MapPin className="w-5 h-5" style={{ color: accent }} />
         </div>
-        <div className="flex-1 min-w-0">
-          <div className="font-display font-semibold text-xl text-white mb-0.5">{venue.name}</div>
-          <div className="font-body text-sm font-light mb-0.5" style={{ color: `${accent}cc` }}>
+        <div className="flex-1 min-w-0 w-full">
+          <div className="font-display font-semibold text-lg sm:text-xl mb-0.5" style={{ color: textColor }}>{venue.name}</div>
+          <div className="font-body text-xs sm:text-sm font-light mb-0.5" style={{ color: isDark ? `${accent}cc` : '#8c680f' }}>
             {venue.hall}
           </div>
-          <div className="font-body text-sm text-white/50 mb-4">{venue.address}</div>
-          <div className="flex flex-wrap gap-3">
+          <div className="font-body text-xs sm:text-sm mb-4" style={{ color: addressColor }}>{venue.address}</div>
+          <div className="flex flex-wrap gap-2 sm:gap-3 w-full">
             <a
               href={venue.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs py-2 px-5 rounded-full font-body font-medium uppercase tracking-wider inline-flex items-center gap-2 transition-transform duration-200 hover:scale-105"
+              className="text-xs py-2.5 px-4 sm:px-5 rounded-full font-body font-medium uppercase tracking-wider inline-flex items-center justify-center gap-2 flex-1 sm:flex-initial transition-transform duration-200 hover:scale-105 text-center min-w-[130px]"
               style={{
                 background: btnGradient || `linear-gradient(135deg, ${accent}, #fff)`,
                 color: btnText || '#000',
@@ -39,7 +48,7 @@ export default function MapSection({ venue, accent, cardBg, btnGradient, btnText
               href={venue.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs py-2 px-5 rounded-full font-body font-light uppercase tracking-wider inline-flex items-center gap-2 transition-all duration-200 hover:scale-105"
+              className="text-xs py-2.5 px-4 sm:px-5 rounded-full font-body font-light uppercase tracking-wider inline-flex items-center justify-center gap-2 flex-1 sm:flex-initial transition-all duration-200 hover:scale-105 text-center min-w-[120px]"
               style={{
                 border: `1px solid ${accent}50`,
                 color: accent,
@@ -52,7 +61,7 @@ export default function MapSection({ venue, accent, cardBg, btnGradient, btnText
             {venue.phone && (
               <a
                 href={`tel:${venue.phone}`}
-                className="text-xs py-2 px-5 rounded-full font-body font-light uppercase tracking-wider inline-flex items-center gap-2 transition-all duration-200 hover:scale-105"
+                className="text-xs py-2.5 px-4 sm:px-5 rounded-full font-body font-light uppercase tracking-wider inline-flex items-center justify-center gap-2 flex-1 sm:flex-initial transition-all duration-200 hover:scale-105 text-center min-w-[110px]"
                 style={{
                   border: `1px solid ${accent}50`,
                   color: accent,
@@ -93,7 +102,7 @@ export default function MapSection({ venue, accent, cardBg, btnGradient, btnText
         <iframe
           src={venue.embedUrl}
           width="100%"
-          height="380"
+          className="w-full h-[280px] sm:h-[380px]"
           style={{ border: 0, display: 'block', filter: 'saturate(1.1)' }}
           allowFullScreen
           loading="lazy"

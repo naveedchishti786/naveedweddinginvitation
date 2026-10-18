@@ -6,11 +6,22 @@
 
 @layer base {
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     font-family: 'Jost', sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
+  }
+  /* Prevent iOS Safari from auto-zooming on form focus */
+  @media screen and (max-width: 768px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
   }
 }
 
@@ -81,9 +92,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem 1.25rem;
-    min-width: 72px;
+    padding: 0.5rem 0.45rem;
+    min-width: 50px;
     border-radius: 0.75rem;
+  }
+  @media (min-width: 380px) {
+    .count-box {
+      padding: 0.65rem 0.6rem;
+      min-width: 58px;
+    }
+  }
+  @media (min-width: 640px) {
+    .count-box {
+      padding: 1rem 1.25rem;
+      min-width: 72px;
+    }
   }
 
   /* ─── TIMELINE ─── */
@@ -236,3 +259,85 @@
 
 /* ─── URDU FONT ─── */
 .urdu { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; }
+
+/* ─── LIGHT MODE REGAL LUXURY THEME ─── */
+.light-mode {
+  color-scheme: light;
+}
+
+.light-mode body {
+  background-color: #faf7f2;
+  color: #1a1612;
+}
+
+/* Base text contrast when using Tailwind white utilities */
+.light-mode .text-white,
+.light-mode .text-white\/95,
+.light-mode .text-white\/90 {
+  color: #1b1713 !important;
+}
+
+.light-mode .text-white\/85,
+.light-mode .text-white\/80 {
+  color: #2b251e !important;
+}
+
+.light-mode .text-white\/75,
+.light-mode .text-white\/70,
+.light-mode .text-white\/60 {
+  color: #4a3f35 !important;
+}
+
+.light-mode .text-white\/40,
+.light-mode .text-white\/50 {
+  color: #6b5d4e !important;
+}
+
+/* Convert literal inline white styles to rich dark espresso in light mode */
+.light-mode [style*="color: white"],
+.light-mode [style*="color:white"],
+.light-mode [style*="color: 'white'"],
+.light-mode [style*='color: "white"'] {
+  color: #1a1612 !important;
+}
+
+/* Section labels in light mode */
+.light-mode .section-label {
+  color: #8c680f !important;
+  font-weight: 500 !important;
+}
+
+.light-mode .glass {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-color: rgba(184, 138, 20, 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 0 20px rgba(197, 162, 39, 0.08) !important;
+}
+
+.light-mode .glass p {
+  color: #2b251e;
+}
+
+.light-mode .glass-gold {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(184, 138, 20, 0.45) !important;
+  box-shadow: 0 8px 24px rgba(197, 162, 39, 0.14) !important;
+}
+
+.light-mode .btn-outline-gold {
+  border-color: rgba(184, 138, 20, 0.6) !important;
+  color: #8c680f !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+.light-mode .btn-outline-gold:hover {
+  background: rgba(184, 138, 20, 0.12) !important;
+}
+
+.light-mode .star {
+  opacity: 0.22 !important;
+}
+
+.light-mode .count-box {
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 4px 20px rgba(197, 162, 39, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}

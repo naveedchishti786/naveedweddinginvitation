@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Calendar, ArrowRight, Heart, ChevronDown } from 'lucide-react';
+import { Calendar, ArrowRight, Heart } from 'lucide-react';
 import Countdown from '../components/CountdownTimer';
 import Footer from '../components/Footer';
 import InvitationBanner from '../components/InvitationBanner';
 import { couple, events } from '../data/events';
+import { useTheme } from '../context/ThemeContext';
 
 const BG = 'radial-gradient(ellipse 90% 75% at 50% 0%, #180d2e 0%, #0d071a 40%, #05020b 100%)';
+const LIGHT_BG = 'radial-gradient(ellipse 90% 75% at 50% 0%, #fffdf9 0%, #faf4e8 45%, #f4ede0 100%)';
 const ACCENT = '#d4af37';
 const ACCENT2 = '#fde047';
 
@@ -27,6 +29,15 @@ const stars = Array.from({ length: 30 }, (_, i) => ({
 }));
 
 export default function Home() {
+  const { isDark } = useTheme();
+
+  // High contrast color tokens for dark and light modes
+  const textColor = isDark ? '#ffffff' : '#1a1612';
+  const textMuted = isDark ? 'rgba(255,255,255,0.85)' : '#2b241e';
+  const textSubtle = isDark ? 'rgba(255,255,255,0.65)' : '#4d4034';
+  const textFaint = isDark ? 'rgba(255,255,255,0.45)' : '#786857';
+  const labelColor = isDark ? `${ACCENT}90` : '#8c680f';
+
   return (
     <motion.div
       key="home"
@@ -34,8 +45,8 @@ export default function Home() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6 }}
-      className="min-h-screen relative overflow-hidden"
-      style={{ background: BG }}
+      className="min-h-screen relative overflow-hidden transition-colors duration-500"
+      style={{ background: isDark ? BG : LIGHT_BG }}
     >
       {/* ── STARS ── */}
       {stars.map(s => (
@@ -46,6 +57,7 @@ export default function Home() {
             top: s.top, left: s.left,
             width: s.size, height: s.size,
             background: ACCENT,
+            opacity: isDark ? 0.45 : 0.2,
             animationDuration: s.dur,
             animationDelay: s.delay,
           }}
@@ -53,12 +65,14 @@ export default function Home() {
       ))}
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-5 pt-24 pb-16">
+      <section className="relative flex flex-col items-center justify-center text-center px-4 sm:px-5 pt-20 sm:pt-24 pb-8 sm:pb-10">
         {/* Radial glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(197,162,39,0.06) 0%, transparent 70%)',
+            background: isDark
+              ? 'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(197,162,39,0.06) 0%, transparent 70%)'
+              : 'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(197,162,39,0.12) 0%, transparent 70%)',
           }}
         />
 
@@ -66,12 +80,12 @@ export default function Home() {
         <motion.div {...fadeUp(0.1)} className="mb-5">
           <div
             className="urdu text-2xl md:text-3xl font-semibold mb-2"
-            style={{ color: `${ACCENT}70` }}
+            style={{ color: isDark ? `${ACCENT}70` : '#9a7314' }}
           >
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </div>
           <div className="ornament w-48 mx-auto text-xs">
-            <span>✦</span><span style={{ color: `${ACCENT}60` }}>In The Name of Allah</span><span>✦</span>
+            <span>✦</span><span style={{ color: isDark ? `${ACCENT}80` : '#8c680f' }}>In The Name of Allah</span><span>✦</span>
           </div>
         </motion.div>
 
@@ -79,7 +93,7 @@ export default function Home() {
         <InvitationBanner theme={{ accent: ACCENT, glow: 'rgba(197,162,39,0.2)' }} />
 
         {/* ── TOGETHER LABEL ── */}
-        <motion.p {...fadeUp(0.28)} className="section-label mb-4" style={{ color: `${ACCENT}80` }}>
+        <motion.p {...fadeUp(0.28)} className="section-label mb-4" style={{ color: labelColor }}>
           Together Forever · 2026–2027
         </motion.p>
 
@@ -118,7 +132,7 @@ export default function Home() {
 
         {/* ── FULL NAMES ── */}
         <motion.div {...fadeUp(0.55)} className="mb-2 text-center">
-          <div className="font-display text-white/80 text-base md:text-lg font-light tracking-wide">
+          <div className="font-display text-base md:text-lg font-light tracking-wide" style={{ color: textMuted }}>
             {couple.groomFull}
             <span className="mx-3 font-script text-2xl" style={{ color: ACCENT }}>weds</span>
             {couple.brideFull}
@@ -129,60 +143,54 @@ export default function Home() {
         <motion.div {...fadeUp(0.6)} className="mb-10">
           <span
             className="font-body text-sm font-light tracking-[0.3em]"
-            style={{ color: `${ACCENT}60` }}
+            style={{ color: isDark ? `${ACCENT}60` : '#8c680f' }}
           >
             {couple.hashtag}
           </span>
         </motion.div>
 
         {/* ── DATE BADGE ── */}
-        <motion.div {...fadeUp(0.65)} className="mb-10">
+        <motion.div {...fadeUp(0.65)} className="mb-8 sm:mb-10 w-full max-w-xl px-2">
           <div
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full glass-gold"
+            className="inline-flex items-center justify-center gap-2 sm:gap-3 px-3.5 sm:px-6 py-2 sm:py-3 rounded-full glass-gold max-w-[94vw] mx-auto text-center"
+            style={{
+              background: isDark ? 'rgba(197, 162, 39, 0.06)' : 'rgba(255, 255, 255, 0.95)',
+              borderColor: isDark ? 'rgba(197, 162, 39, 0.2)' : 'rgba(184, 138, 20, 0.45)',
+              boxShadow: isDark ? 'none' : '0 4px 20px rgba(197, 162, 39, 0.15)',
+            }}
           >
-            <Calendar className="w-4 h-4" style={{ color: ACCENT }} />
-            <span className="font-body text-sm font-light text-white/90 tracking-wide">
+            <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" style={{ color: ACCENT }} />
+            <span className="font-body text-[11px] sm:text-sm font-light tracking-wide text-center" style={{ color: textColor }}>
               31 Dec 2026 – 02 Jan 2027 · Mian Channu &amp; Burewala
             </span>
-            <Heart className="w-4 h-4 fill-current" style={{ color: ACCENT }} />
+            <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current shrink-0" style={{ color: ACCENT }} />
           </div>
         </motion.div>
 
         {/* ── COUNTDOWN ── */}
-        <motion.div {...fadeUp(0.72)} className="mb-12 w-full max-w-lg">
-          <div className="section-label mb-5 text-center" style={{ color: `${ACCENT}50` }}>
+        <motion.div {...fadeUp(0.72)} className="mb-8 sm:mb-10 w-full max-w-lg px-2">
+          <div className="section-label mb-3 sm:mb-4 text-[10px] sm:text-xs text-center" style={{ color: labelColor }}>
             Counting Down to the Wedding Day
           </div>
           <Countdown target={couple.weddingDate} accent={ACCENT} accent2={ACCENT2} />
         </motion.div>
 
         {/* ── CTA ── */}
-        <motion.div {...fadeUp(0.8)} className="flex flex-col sm:flex-row gap-4 mb-16">
-          <Link to="/mehndi" className="btn-gold">
+        <motion.div {...fadeUp(0.8)} className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6 w-full sm:w-auto max-w-xs sm:max-w-none px-4 sm:px-0">
+          <Link to="/mehndi" className="btn-gold w-full sm:w-auto text-center justify-center">
             Explore Events
             <ArrowRight className="w-4 h-4" />
           </Link>
-          <a href="#events" className="btn-outline-gold">
+          <a href="#events" className="btn-outline-gold w-full sm:w-auto text-center justify-center">
             View Invitations ↓
           </a>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="flex flex-col items-center gap-2"
-          style={{ color: `${ACCENT}40` }}
-        >
-          <ChevronDown className="w-5 h-5 animate-float" />
         </motion.div>
       </section>
 
       {/* ═══════════════════════════════════════
           EVENTS SECTION
       ═══════════════════════════════════════ */}
-      <section id="events" className="relative py-28 px-5">
+      <section id="events" className="relative pt-6 pb-20 sm:pt-10 sm:pb-24 px-4 sm:px-5">
         {/* Divider */}
         <div className="max-w-5xl mx-auto text-center mb-16">
           <motion.div
@@ -191,11 +199,11 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="section-label mb-4" style={{ color: `${ACCENT}55` }}>
+            <div className="section-label mb-4" style={{ color: labelColor }}>
               Our Celebrations
             </div>
-            <h2 className="font-display font-semibold text-white leading-tight mb-3"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
+            <h2 className="font-display font-semibold leading-tight mb-3"
+              style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: textColor }}
             >
               Three Days of
               <br />
@@ -223,9 +231,9 @@ export default function Home() {
                   transition={{ type: 'spring', stiffness: 280, damping: 20 }}
                   className="event-card relative rounded-2xl overflow-hidden cursor-pointer group"
                   style={{
-                    background: ev.theme.gradient,
-                    border: `1px solid ${ev.theme.border || ev.theme.accent + '35'}`,
-                    boxShadow: `0 12px 40px ${ev.theme.glow || 'rgba(0,0,0,0.5)'}`,
+                    background: isDark ? ev.theme.gradient : (ev.theme.lightGradient || 'rgba(255, 255, 255, 0.95)'),
+                    border: `1px solid ${isDark ? (ev.theme.border || ev.theme.accent + '35') : 'rgba(184, 138, 20, 0.35)'}`,
+                    boxShadow: isDark ? `0 12px 40px ${ev.theme.glow || 'rgba(0,0,0,0.5)'}` : '0 10px 30px rgba(0,0,0,0.06)',
                   }}
                 >
                   {/* Top accent */}
@@ -247,9 +255,10 @@ export default function Home() {
                         <div
                           className="px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-body font-medium"
                           style={{
-                            background: ev.theme.badgeBg || `${ev.theme.accent}15`,
+                            background: isDark ? (ev.theme.badgeBg || `${ev.theme.accent}15`) : 'rgba(255, 255, 255, 0.95)',
                             color: ev.theme.accent,
                             border: `1px solid ${ev.theme.border || ev.theme.accent + '30'}`,
+                            boxShadow: isDark ? 'none' : '0 2px 8px rgba(0,0,0,0.04)',
                           }}
                         >
                           {ev.theme.taglineBadge}
@@ -259,22 +268,16 @@ export default function Home() {
 
                     {/* Name */}
                     <h3
-                      className="font-display font-semibold text-2xl mb-1"
+                      className="font-display font-semibold text-2xl mb-2"
                       style={{ color: ev.theme.accent }}
                     >
                       {ev.name}
                     </h3>
-                    <div
-                      className="urdu text-base mb-3"
-                      style={{ color: `${ev.theme.accent}80` }}
-                    >
-                      {ev.urdu}
-                    </div>
 
                     {/* Tagline */}
                     <p
                       className="font-body text-xs font-light leading-relaxed mb-5"
-                      style={{ color: 'rgba(255,255,255,0.6)' }}
+                      style={{ color: textSubtle }}
                     >
                       "{ev.tagline}"
                     </p>
@@ -282,13 +285,13 @@ export default function Home() {
                     {/* Date + Time */}
                     <div
                       className="font-body text-sm font-medium mb-1"
-                      style={{ color: 'rgba(255,255,255,0.85)' }}
+                      style={{ color: textColor }}
                     >
                       {ev.dayName}, {ev.date}
                     </div>
                     <div
                       className="font-body text-xs font-light mb-5"
-                      style={{ color: 'rgba(255,255,255,0.45)' }}
+                      style={{ color: textFaint }}
                     >
                       {ev.time} · {ev.venue.city}
                     </div>
@@ -298,7 +301,7 @@ export default function Home() {
                       className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase group-hover:gap-4 transition-all duration-300 pt-3 border-t"
                       style={{
                         color: ev.theme.accent,
-                        borderColor: `${ev.theme.accent}25`,
+                        borderColor: isDark ? `${ev.theme.accent}25` : 'rgba(184, 138, 20, 0.3)',
                       }}
                     >
                       <span>View Invitation</span>
@@ -316,9 +319,9 @@ export default function Home() {
       <Footer
         theme={{
           accent: ACCENT,
-          border: 'rgba(212,175,55,0.3)',
+          border: isDark ? 'rgba(212,175,55,0.3)' : 'rgba(184,138,20,0.35)',
           glow: 'rgba(212,175,55,0.2)',
-          cardBg: 'rgba(212,175,55,0.06)',
+          cardBg: isDark ? 'rgba(212,175,55,0.06)' : 'rgba(255, 255, 255, 0.92)',
         }}
       />
     </motion.div>

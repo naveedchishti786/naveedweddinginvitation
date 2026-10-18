@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { couple } from '../data/events';
+import { useTheme } from '../context/ThemeContext';
 
 const STORAGE_KEY = 'shaadi_rsvp_records_v1';
 const LAST_EMAIL_KEY = 'shaadi_last_rsvp_email';
@@ -44,6 +45,7 @@ const findExistingRsvp = (email, eventId) => {
 
 export default function RSVPModal({ open, onClose, event }) {
   const { theme } = event;
+  const { isDark } = useTheme();
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -212,9 +214,9 @@ export default function RSVPModal({ open, onClose, event }) {
   };
 
   const inputStyle = {
-    background: 'rgba(255,255,255,0.04)',
-    border: `1px solid rgba(255,255,255,0.08)`,
-    color: 'white',
+    background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+    border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.12)'}`,
+    color: isDark ? 'white' : '#1a1612',
     borderRadius: '0.75rem',
     padding: '0.7rem 0.9rem 0.7rem 2.6rem',
     width: '100%',
@@ -245,7 +247,7 @@ export default function RSVPModal({ open, onClose, event }) {
               borderColor: `${theme.accent}25`,
               maxHeight: '92vh',
               overflowY: 'auto',
-              background: theme.dark,
+              background: isDark ? theme.dark : '#fffdf9',
             }}
           >
             {/* Top accent line */}
@@ -262,15 +264,21 @@ export default function RSVPModal({ open, onClose, event }) {
               <button
                 onClick={handleClose}
                 className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center transition-colors"
-                style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.6)' }}
+                style={{
+                  background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+                  color: isDark ? 'rgba(255,255,255,0.7)' : '#1a1612',
+                }}
               >
                 <X className="w-4 h-4" />
               </button>
               <div className="text-5xl mb-3">{event.icon}</div>
-              <div className="font-display font-semibold text-2xl text-white mb-1">
+              <div
+                className="font-display font-semibold text-2xl mb-1"
+                style={{ color: isDark ? '#ffffff' : '#1a1612' }}
+              >
                 {existingRsvp ? 'Update Your RSVP' : 'RSVP'}
               </div>
-              <div className="font-body text-sm font-light" style={{ color: `${theme.accent}cc` }}>
+              <div className="font-body text-sm font-light" style={{ color: isDark ? `${theme.accent}cc` : '#8c680f' }}>
                 {event.name} · {event.date}
               </div>
             </div>
@@ -292,11 +300,17 @@ export default function RSVPModal({ open, onClose, event }) {
                     <CheckCircle2 className="w-10 h-10" style={{ color: theme.accent }} />
                   </motion.div>
 
-                  <div className="font-display text-2xl font-semibold text-white mb-2">
+                  <div
+                    className="font-display text-2xl font-semibold mb-2"
+                    style={{ color: isDark ? '#ffffff' : '#1a1612' }}
+                  >
                     {wasUpdated ? 'RSVP Updated Successfully! 🔄' : 'JazakAllah Khair!'}
                   </div>
 
-                  <p className="font-body text-sm text-white/75 leading-relaxed mb-4">
+                  <p
+                    className="font-body text-sm leading-relaxed mb-4"
+                    style={{ color: isDark ? 'rgba(255,255,255,0.75)' : '#332a22' }}
+                  >
                     {wasUpdated ? (
                       <>
                         Your updated response for <span style={{ color: theme.accent }} className="font-medium">{event.name}</span> ({form.attending === 'yes' ? `${form.guests} Guests` : 'Declined'}) has been updated and emailed to the host.
@@ -373,10 +387,13 @@ export default function RSVPModal({ open, onClose, event }) {
                           {existingRsvp.submittedAt ? new Date(existingRsvp.submittedAt).toLocaleDateString() : 'Previously'}
                         </span>
                       </div>
-                      <p className="text-xs text-white/80 font-light leading-relaxed">
+                      <p
+                        className="text-xs font-light leading-relaxed"
+                        style={{ color: isDark ? 'rgba(255,255,255,0.85)' : '#332a22' }}
+                      >
                         You previously submitted an RSVP ({existingRsvp.attending === 'yes' ? 'Joyfully Attending' : 'Declined'} · {existingRsvp.guests} {existingRsvp.guests === '1' ? 'Guest' : 'Guests'}).
                       </p>
-                      <p className="text-[11px] text-amber-300/95 font-medium mt-1.5 flex items-center gap-1">
+                      <p className="text-[11px] text-amber-500 font-medium mt-1.5 flex items-center gap-1">
                         <Edit3 className="w-3 h-3" />
                         <span>Update your guest count, attendance or message below:</span>
                       </p>
@@ -386,7 +403,7 @@ export default function RSVPModal({ open, onClose, event }) {
                   {/* Attending toggle */}
                   <div
                     className="flex rounded-xl overflow-hidden"
-                    style={{ border: `1px solid rgba(255,255,255,0.08)` }}
+                    style={{ border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'}` }}
                   >
                     {[['yes', '✅ Joyfully Attending'], ['no', '😔 Regretfully Declining']].map(([v, l]) => (
                       <button
@@ -396,7 +413,7 @@ export default function RSVPModal({ open, onClose, event }) {
                         className="flex-1 py-2.5 text-xs font-medium transition-all duration-300 font-body"
                         style={{
                           background: form.attending === v ? (theme.btnGradient || theme.accent) : 'transparent',
-                          color: form.attending === v ? (theme.btnText || '#1a0e00') : 'rgba(255,255,255,0.45)',
+                          color: form.attending === v ? (theme.btnText || '#1a0e00') : (isDark ? 'rgba(255,255,255,0.45)' : '#665544'),
                           letterSpacing: '0.05em',
                         }}
                       >
@@ -419,7 +436,7 @@ export default function RSVPModal({ open, onClose, event }) {
                       onChange={e => handleEmailChange(e.target.value)}
                       style={inputStyle}
                       onFocus={e => Object.assign(e.target.style, focusStyle)}
-                      onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')}
+                      onBlur={e => (e.target.style.borderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.12)')}
                     />
                   </div>
 
@@ -437,7 +454,7 @@ export default function RSVPModal({ open, onClose, event }) {
                       onChange={e => set('name', e.target.value)}
                       style={inputStyle}
                       onFocus={e => Object.assign(e.target.style, focusStyle)}
-                      onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')}
+                      onBlur={e => (e.target.style.borderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.12)')}
                     />
                   </div>
 
@@ -454,7 +471,7 @@ export default function RSVPModal({ open, onClose, event }) {
                       onChange={e => set('phone', e.target.value)}
                       style={inputStyle}
                       onFocus={e => Object.assign(e.target.style, focusStyle)}
-                      onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')}
+                      onBlur={e => (e.target.style.borderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.12)')}
                     />
                   </div>
 
@@ -464,10 +481,23 @@ export default function RSVPModal({ open, onClose, event }) {
                     <select
                       value={form.guests}
                       onChange={e => set('guests', e.target.value)}
-                      style={{ ...inputStyle, appearance: 'none', cursor: 'pointer', background: theme.dark }}
+                      style={{
+                        ...inputStyle,
+                        appearance: 'none',
+                        cursor: 'pointer',
+                        background: isDark ? theme.dark : '#ffffff',
+                        color: isDark ? '#ffffff' : '#1a1612',
+                      }}
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
-                        <option key={n} value={n} style={{ background: theme.dark }}>
+                        <option
+                          key={n}
+                          value={n}
+                          style={{
+                            background: isDark ? theme.dark : '#ffffff',
+                            color: isDark ? '#ffffff' : '#1a1612',
+                          }}
+                        >
                           {n} {n === 1 ? 'Guest' : 'Guests'}
                         </option>
                       ))}
