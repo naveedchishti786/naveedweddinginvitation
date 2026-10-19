@@ -48,6 +48,7 @@ export default function Navbar() {
           background: navBg,
           backdropFilter: scrolled ? 'blur(24px)' : 'none',
           borderBottom: navBorder,
+          paddingTop: 'env(safe-area-inset-top, 0px)',
         }}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-10">
@@ -229,12 +230,15 @@ export default function Navbar() {
             {/* Close button */}
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full"
+              className="absolute w-11 h-11 flex items-center justify-center rounded-full cursor-pointer transition-transform duration-200 active:scale-95"
               style={{
+                top: 'max(1.25rem, env(safe-area-inset-top, 20px))',
+                right: 'max(1.25rem, env(safe-area-inset-right, 20px))',
                 border: `1px solid ${theme.border}`,
                 color: theme.accent,
                 background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
               }}
+              aria-label="Close Navigation Menu"
             >
               <X className="w-5 h-5" />
             </button>

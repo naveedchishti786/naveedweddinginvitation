@@ -10,6 +10,7 @@ import MapSection from '../components/MapEmbed';
 import RSVPModal from '../components/RSVPModal';
 import Footer from '../components/Footer';
 import InvitationBanner from '../components/InvitationBanner';
+import NikkahBlessing from '../components/NikkahBlessing';
 import { getEvent, events, couple } from '../data/events';
 import { useTheme } from '../context/ThemeContext';
 
@@ -97,7 +98,10 @@ export default function EventPage({ eventId }) {
       {/* ══════════════════════
           HERO
       ══════════════════════ */}
-      <section className="relative flex flex-col items-center justify-center text-center px-3.5 sm:px-5 pt-20 sm:pt-24 pb-8 sm:pb-12">
+      <section
+        className="relative flex flex-col items-center justify-center text-center px-3.5 sm:px-5 pb-8 sm:pb-12"
+        style={{ paddingTop: 'calc(5.25rem + env(safe-area-inset-top, 0px))' }}
+      >
 
         {/* Back Link */}
         <motion.div {...fadeIn(0)} className="w-full max-w-xl flex items-center justify-start mb-3 sm:mb-4 px-1">
@@ -238,6 +242,13 @@ export default function EventPage({ eventId }) {
       </section>
 
       {/* ══════════════════════
+          ISLAMIC NIKKAH & SUNNAH BLESSING (BARAT & WALIMA ONLY)
+      ══════════════════════ */}
+      {(eventId === 'barat' || eventId === 'walima') && (
+        <NikkahBlessing eventId={eventId} theme={theme} isDark={isDark} />
+      )}
+
+      {/* ══════════════════════
           ABOUT
       ══════════════════════ */}
       <section className="relative pt-6 pb-16 sm:pt-10 sm:pb-20 px-4 sm:px-5">
@@ -323,7 +334,7 @@ export default function EventPage({ eventId }) {
               >
                 {/* Dot */}
                 <div
-                  className="absolute left-[-18.5px] sm:[-23.5px] top-4 w-2.5 h-2.5 rounded-full flex-shrink-0"
+                  className="absolute left-[-18.5px] sm:left-[-23.5px] top-4 w-2.5 h-2.5 rounded-full flex-shrink-0"
                   style={{ background: theme.accent, boxShadow: `0 0 10px ${theme.accent}80` }}
                 />
                 {/* Card */}

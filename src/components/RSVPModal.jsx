@@ -242,11 +242,12 @@ export default function RSVPModal({ open, onClose, event }) {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.88, opacity: 0, y: 30 }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            className="relative w-full max-w-md glass rounded-3xl overflow-hidden"
+            className="relative w-full max-w-md glass rounded-3xl overflow-hidden my-auto"
             style={{
               borderColor: `${theme.accent}25`,
-              maxHeight: '92vh',
+              maxHeight: 'calc(100dvh - 2rem)',
               overflowY: 'auto',
+              WebkitOverflowScrolling: 'touch',
               background: isDark ? theme.dark : '#fffdf9',
             }}
           >

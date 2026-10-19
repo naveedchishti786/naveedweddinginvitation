@@ -4,6 +4,7 @@ import { Calendar, ArrowRight, Heart } from 'lucide-react';
 import Countdown from '../components/CountdownTimer';
 import Footer from '../components/Footer';
 import InvitationBanner from '../components/InvitationBanner';
+import IslamicOpening from '../components/IslamicOpening';
 import { couple, events } from '../data/events';
 import { useTheme } from '../context/ThemeContext';
 
@@ -65,7 +66,10 @@ export default function Home() {
       ))}
 
       {/* ── HERO ── */}
-      <section className="relative flex flex-col items-center justify-center text-center px-4 sm:px-5 pt-20 sm:pt-24 pb-8 sm:pb-10">
+      <section
+        className="relative flex flex-col items-center justify-center text-center px-4 sm:px-5 pb-8 sm:pb-10"
+        style={{ paddingTop: 'calc(5.25rem + env(safe-area-inset-top, 0px))' }}
+      >
         {/* Radial glow */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -76,18 +80,8 @@ export default function Home() {
           }}
         />
 
-        {/* ── BISMILLAH ── */}
-        <motion.div {...fadeUp(0.1)} className="mb-5">
-          <div
-            className="urdu text-2xl md:text-3xl font-semibold mb-2"
-            style={{ color: isDark ? `${ACCENT}70` : '#9a7314' }}
-          >
-            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-          </div>
-          <div className="ornament w-48 mx-auto text-xs">
-            <span>✦</span><span style={{ color: isDark ? `${ACCENT}80` : '#8c680f' }}>In The Name of Allah</span><span>✦</span>
-          </div>
-        </motion.div>
+        {/* ── ISLAMIC OPENING & QURAN RECITATION ── */}
+        <IslamicOpening isDark={isDark} accent={ACCENT} />
 
         {/* ── WARM INVITATION FROM HOST (1st Section) ── */}
         <InvitationBanner theme={{ accent: ACCENT, glow: 'rgba(197,162,39,0.2)' }} />

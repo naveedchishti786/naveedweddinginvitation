@@ -189,7 +189,7 @@ export const events = [
       embedUrl: 'https://www.google.com/maps?q=Burewala+Punjab+Pakistan&output=embed',
     },
 
-    description: `Mr & Mrs Haji Abdul Waheed request the pleasure of your company at the Barat Ceremony of their beloved son Naveed weds Arfa. With hearts full of gratitude and joy, we invite you to witness the sacred Nikkah and grand Barat in Burewala. The groom's procession will depart from Mian Channu and arrive with the thundering of dhols and the glow of a thousand lights, as two souls are joined in the holy bond of matrimony. The afternoon will be adorned with the recitation of Quran, the exchange of vows, joyful traditional rasams, and a grand royal lunch that will remain etched in your memories forever.`,
+    description: `Mr & Mrs Haji Abdul Waheed request the pleasure of your company at the Barat Ceremony of their beloved son Muhammad Naveed with Arfa. With hearts full of gratitude and joy, we invite you to witness the sacred Nikkah and grand Barat in Burewala. The groom's procession will depart from Mian Channu and arrive with the thundering of dhols and the glow of a thousand lights, as two souls are joined in the holy bond of matrimony. The afternoon will be adorned with the recitation of the Holy Quran, the sacred Nikkah, joyful traditional rasams, and a grand royal lunch that will remain etched in your memories forever.`,
 
     descriptionUrdu: `آپ کو پُرتپاک دعوت دی جاتی ہے کہ ہمارے پیارے بیٹے نوید کے ہمراہ عرفہ کے نکاح و بارات کی بوریوالا میں منعقدہ مقدس تقریب میں شرکت فرما کر اس مبارک گھڑی کو یادگار بنائیں۔`,
 
@@ -270,7 +270,7 @@ export const events = [
       embedUrl: MIAN_CHANNU_EMBED('Mughal e Azam Marriage Hall, GT Road, Mian Channu'),
     },
 
-    description: `Mr & Mrs Haji Abdul Waheed request the pleasure of your company at the Walima Ceremony of their beloved son Naveed weds Arfa. We joyfully invite you to join us for the Walima — a blessed gathering to celebrate the new beginning of their journey together as husband and wife. The Walima is a Sunnah of the Prophet (PBUH), a feast of gratitude and sharing. Come, break bread with us, shower the newlyweds with your duas and blessings, and let us together celebrate this most beautiful chapter of love, faith, and family.`,
+    description: `Mr & Mrs Haji Abdul Waheed request the pleasure of your company at the Walima Ceremony of their beloved son Muhammad Naveed. We joyfully invite you to join us for the Walima — a blessed gathering to celebrate the new beginning of their journey together as husband and wife. The Walima is a Sunnah of the Prophet (PBUH), a feast of gratitude and sharing. Come, break bread with us, shower the newlyweds with your duas and blessings, and let us together celebrate this most beautiful chapter of love, faith, and family.`,
 
     descriptionUrdu: `آپ کو ولیمے کی پُرمسرت دعوت ہے۔ نوید اور ان کی اہلیہ عرفہ کی خوشیوں میں شریک ہو کر نوبیاہتا جوڑے کو اپنی نیک تمناؤں اور دعاؤں سے نوازیں۔`,
 
