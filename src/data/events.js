@@ -115,13 +115,13 @@ export const events = [
       { time: '07:00 PM', event: 'Mehndi Ceremony Begins' },
       { time: '07:30 PM', event: 'Dhol & Geet — Musical Celebration' },
       { time: '08:30 PM', event: 'Grand Dinner Buffet' },
-      { time: '09:30 PM', event: 'Dholki Night & Dance' },
+      { time: '09:30 PM', event: 'Photography & Family Gathering' },
       { time: '11:00 PM', event: 'Evening Concludes' },
     ],
 
     dressCode: {
-      ladies: 'Vibrant Mehndi Colours — Yellows, Greens & Oranges. Gharara, Sharara or Anarkali preferred.',
-      gents: 'Traditional Kurta Shalwar — Mustard, Olive or Ivory tones.',
+      ladies: 'Stunning Emerald Green, Warm Mustard & Rose Gold — Festive Gharara, Sharara or Lehenga preferred.',
+      gents: 'Classic Black & White — Crisp White Kurta Shalwar with Black Waistcoat, or Sophisticated Jet Black Kurta.',
     },
 
     theme: {

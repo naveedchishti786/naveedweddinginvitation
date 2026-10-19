@@ -414,38 +414,6 @@ export default function EventPage({ eventId }) {
             ))}
           </div>
 
-          {/* Walima Dress Inspiration Preview */}
-          {eventId === 'walima' && (
-            <motion.div
-              {...inView(0.22)}
-              className="mt-8 glass rounded-2xl p-6 text-center max-w-sm mx-auto overflow-hidden relative"
-              style={{
-                borderColor: `${theme.accent}35`,
-                background: activeCardBg,
-                boxShadow: isDark ? 'none' : '0 10px 30px rgba(0,0,0,0.06)',
-              }}
-            >
-              <div
-                className="w-full h-80 rounded-xl overflow-hidden mx-auto mb-3 shadow-2xl relative border"
-                style={{ borderColor: `${theme.accent}40` }}
-              >
-                <img
-                  src="/walima-dress.jpg"
-                  alt="Walima Dress Color Inspiration"
-                  className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <div
-                className="text-xs uppercase tracking-widest font-body font-medium"
-                style={{ color: theme.accent }}
-              >
-                Couples' Walima Attire Palette
-              </div>
-              <p className="text-xs mt-1 font-body font-light" style={{ color: textSubtle }}>
-                Pastel Sage Green, Mint Mist &amp; Shimmering Silver Zardozi
-              </p>
-            </motion.div>
-          )}
         </div>
       </section>
 
